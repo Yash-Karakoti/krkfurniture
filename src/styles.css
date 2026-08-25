@@ -1,0 +1,137 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design system definition.
+ *
+ * The @theme inline block maps CSS custom properties to Tailwind utility
+ * classes (e.g. --color-primary -> bg-primary, text-primary).
+ *
+ * The :root and .dark blocks define the actual color values using oklch.
+ * All colors MUST use oklch format.
+ *
+ * To add a new semantic color:
+ * 1. Add the variable to :root (light value) and .dark (dark value)
+ * 2. Register it in @theme inline as --color-<name>: var(--<name>)
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-teak: var(--teak);
+  --color-canvas: var(--canvas);
+  --color-ivory: var(--ivory);
+  --color-rust: var(--rust);
+  --color-brass: var(--brass);
+  --color-whatsapp: var(--whatsapp);
+  --color-whatsapp-foreground: var(--whatsapp-foreground);
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-sans: "Work Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+:root {
+  --radius: 0.25rem;
+
+  /* Named palette */
+  --teak: oklch(0.242 0.018 47);
+  --canvas: oklch(0.923 0.021 82);
+  --ivory: oklch(0.953 0.013 87);
+  --rust: oklch(0.474 0.096 34);
+  --brass: oklch(0.647 0.069 76);
+  --whatsapp: oklch(0.762 0.192 149);
+  --whatsapp-foreground: oklch(0.22 0.05 150);
+
+  --background: var(--canvas);
+  --foreground: var(--teak);
+  --card: var(--ivory);
+  --card-foreground: var(--teak);
+  --popover: var(--ivory);
+  --popover-foreground: var(--teak);
+  --primary: var(--rust);
+  --primary-foreground: var(--ivory);
+  --secondary: var(--ivory);
+  --secondary-foreground: var(--teak);
+  --muted: oklch(0.9 0.02 82);
+  --muted-foreground: oklch(0.46 0.02 50);
+  --accent: var(--brass);
+  --accent-foreground: var(--teak);
+  --destructive: oklch(0.505 0.16 27);
+  --destructive-foreground: var(--ivory);
+  --border: oklch(0.845 0.026 80);
+  --input: oklch(0.845 0.026 80);
+  --ring: var(--brass);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+}
+
+@utility label-mono {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+@utility rule-brass {
+  border-top: 1px solid color-mix(in oklab, var(--brass) 45%, transparent);
+}
+
+@keyframes krk-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility rise-in {
+  animation: krk-rise 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
