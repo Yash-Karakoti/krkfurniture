@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model products {
+  id         String     @id
+  name       String
+  price      Decimal?   @db.Decimal(10, 2)
+  category   String?
+  image_url  String?
+  created_at DateTime?  @default(now()) @db.Timestamptz(6)
+  wishlist   wishlist[]
+}
+
+model wishlist {
+  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id    String
+  product_id String
+  created_at DateTime? @default(now()) @db.Timestamptz(6)
+  product    products  @relation(fields: [product_id], references: [id], onDelete: Cascade)
+
+  @@unique([user_id, product_id])
+}

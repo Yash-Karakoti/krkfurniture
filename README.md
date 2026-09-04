@@ -22,11 +22,11 @@ outside of Lovable, afterward. Structure the mock data to exactly match
 
 this shape, since it needs to map cleanly onto a real database later:
 
-  product: { id, name, price (nullable — see pricing behavior below),
+product: { id, name, price (nullable — see pricing behavior below),
 
              category, image_url }
 
-  wishlist item: { product_id, saved_at }
+wishlist item: { product_id, saved_at }
 
 Seed mock data with two categories only — "Chairs" and "Sofas" — using
 
@@ -46,17 +46,17 @@ DESIGN DIRECTION
 
 Palette (5 colors, named):
 
-  Teak Bark   #2A211C — deep structural neutral: header, footer, body text
+Teak Bark #2A211C — deep structural neutral: header, footer, body text
 
-  Canvas      #EDE6DA — warm light background and card surfaces
+Canvas #EDE6DA — warm light background and card surfaces
 
-  Ivory       #F5F1E8 — lightest layer, slightly lifted off Canvas
+Ivory #F5F1E8 — lightest layer, slightly lifted off Canvas
 
-  Rust Velvet #8C4A3A — primary accent: active wishlist heart, category
+Rust Velvet #8C4A3A — primary accent: active wishlist heart, category
 
               tags, links, hover states
 
-  Brass       #B08D57 — secondary accent: dividers, small details, icons
+Brass #B08D57 — secondary accent: dividers, small details, icons
 
 Reserve WhatsApp's own green (#25D366) only for the WhatsApp button
 
@@ -66,13 +66,13 @@ competing with the site's accent.
 
 Type (3 roles):
 
-  Display — Fraunces, for headlines and product names: warm and a little
+Display — Fraunces, for headlines and product names: warm and a little
 
             hand-carved, not a cold luxury-brand serif
 
-  Body    — Work Sans, clean and humanist, for everything readable
+Body — Work Sans, clean and humanist, for everything readable
 
-  Utility — IBM Plex Mono, for prices and small reference labels — gives
+Utility — IBM Plex Mono, for prices and small reference labels — gives
 
             product cards a "catalog tag" feel
 

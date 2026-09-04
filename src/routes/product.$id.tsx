@@ -2,18 +2,26 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ProductCard } from "@/components/ProductCard";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { WishlistHeart } from "@/components/WishlistHeart";
-import { descriptions, formatPrice, getProduct, products, refCode } from "@/data/products";
+import { descriptions, formatPrice, refCode } from "@/data/products";
+import { getProductFn, getProductsFn } from "@/server/products";
 
 export const Route = createFileRoute("/product/$id")({
-  loader: ({ params }) => {
-    const product = getProduct(params.id);
+  loader: async ({ params }) => {
+    const product = await getProductFn({ data: { id: params.id } });
     if (!product) throw notFound();
-    return { product };
+
+    const related = await getProductsFn({ data: { category: product.category } });
+    const filteredRelated = related.filter((p) => p.id !== product.id).slice(0, 4);
+
+    return { product, related: filteredRelated };
   },
   head: ({ loaderData }) => {
     if (!loaderData) {
       return {
-        meta: [{ title: "Piece unavailable | KRK Furniture" }, { name: "robots", content: "noindex" }],
+        meta: [
+          { title: "Piece unavailable | KRK Furniture" },
+          { name: "robots", content: "noindex" },
+        ],
       };
     }
     const { product } = loaderData;
@@ -31,10 +39,7 @@ export const Route = createFileRoute("/product/$id")({
 });
 
 function ProductPage() {
-  const { product } = Route.useLoaderData();
-  const related = products
-    .filter((p) => p.category === product.category && p.id !== product.id)
-    .slice(0, 4);
+  const { product, related } = Route.useLoaderData();
 
   return (
     <div className="mx-auto max-w-6xl px-5 py-12">
@@ -65,18 +70,14 @@ function ProductPage() {
           <div className="rule-brass mt-8 pt-6">
             <p className="max-w-prose text-foreground/80">{descriptions[product.category]}</p>
             <p className="mt-4 max-w-prose text-foreground/80">
-              Come sit in it before you decide. We deliver across the city and take care of the
-              carry-up ourselves.
+              Come sit in it before you decide. We deliver across the Delhi NCR and take care of the
+              carry up ourselves.
             </p>
           </div>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <WhatsAppButton productName={product.name} size="lg" />
-            <WishlistHeart
-              productId={product.id}
-              productName={product.name}
-              className="size-12"
-            />
+            <WishlistHeart productId={product.id} productName={product.name} className="size-12" />
           </div>
         </div>
       </div>

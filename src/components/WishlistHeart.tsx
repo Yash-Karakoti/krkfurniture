@@ -30,7 +30,10 @@ export function WishlistHeart({
       )}
     >
       <Heart
-        className={cn("size-4 transition-colors", saved ? "fill-primary text-primary" : "text-foreground/70")}
+        className={cn(
+          "size-4 transition-colors",
+          saved ? "fill-primary text-primary" : "text-foreground/70",
+        )}
       />
     </button>
   );

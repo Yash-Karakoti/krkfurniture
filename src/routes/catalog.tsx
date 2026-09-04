@@ -1,8 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ProductCard } from "@/components/ProductCard";
 import { Reveal } from "@/components/Reveal";
-import { categories, products } from "@/data/products";
 import { cn } from "@/lib/utils";
+import { getProductsFn, getCategoriesFn } from "@/server/products";
 
 type CatalogSearch = { category?: string | undefined };
 
@@ -10,6 +10,14 @@ export const Route = createFileRoute("/catalog")({
   validateSearch: (search: Record<string, unknown>): CatalogSearch => {
     const raw = search["category"];
     return typeof raw === "string" ? { category: raw } : {};
+  },
+  loaderDeps: ({ search }) => ({ category: search.category }),
+  loader: async ({ deps }) => {
+    const [products, categories] = await Promise.all([
+      getProductsFn({ data: deps.category ? { category: deps.category } : {} }),
+      getCategoriesFn(),
+    ]);
+    return { products, categories };
   },
   head: () => ({
     meta: [
@@ -31,7 +39,7 @@ export const Route = createFileRoute("/catalog")({
 
 function CatalogPage() {
   const { category } = Route.useSearch();
-  const visible = category ? products.filter((p) => p.category === category) : products;
+  const { products, categories } = Route.useLoaderData();
 
   const filters: { label: string; value?: string | undefined }[] = [
     { label: "All pieces", value: undefined },
@@ -66,7 +74,7 @@ function CatalogPage() {
       </div>
 
       <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {visible.map((product, index) => (
+        {products.map((product, index) => (
           <Reveal key={product.id} delay={Math.min(index, 5) * 60}>
             <ProductCard product={product} />
           </Reveal>

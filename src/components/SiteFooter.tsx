@@ -1,4 +1,5 @@
 import { WHATSAPP_NUMBER } from "@/data/products";
+import { Instagram } from "lucide-react";
 
 export function SiteFooter() {
   return (
@@ -8,30 +9,45 @@ export function SiteFooter() {
           <p className="label-mono text-brass">Talk to us</p>
           <p className="mt-3 font-mono text-sm">+{WHATSAPP_NUMBER}</p>
           <p className="mt-1 text-sm text-canvas/70">
-            Placeholder number — swap in the showroom line.
+            <a
+              href="mailto:krkfurniture79@gmail.com"
+              className="hover:text-brass transition-colors"
+            >
+              krkfurniture79@gmail.com
+            </a>
           </p>
         </div>
         <div>
           <p className="label-mono text-brass">Showroom</p>
           <p className="mt-3 text-sm text-canvas/80">
-            [Street address placeholder]
+            J-45, East Vinod Nagar,
             <br />
-            [City, State — PIN]
+            Mayur Vihar Phase 2, Delhi - 110091
             <br />
-            Open Mon–Sat, 10am–8pm
+            Near Neelam Mata Mandir,
+            <br />
+            Open Mon-Sat, 10 AM - 8 PM
           </p>
         </div>
         <div>
           <p className="label-mono text-brass">Elsewhere</p>
           <ul className="mt-3 space-y-1.5 text-sm text-canvas/80">
-            <li>Instagram — [handle placeholder]</li>
-            <li>Facebook — [page placeholder]</li>
-            <li>Google Maps — [listing placeholder]</li>
+            <li>
+              <a
+                href="https://www.instagram.com/krkfurnitureevn"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-brass transition-colors inline-block"
+                aria-label="Instagram"
+              >
+                <Instagram className="size-6" />
+              </a>
+            </li>
           </ul>
         </div>
       </div>
       <div className="border-t border-brass/25 px-5 py-5 text-center font-mono text-[11px] tracking-widest text-canvas/50 uppercase">
-        KRK Furniture — catalog and enquiries only
+        KRK Furniture - catalog and enquiries only
       </div>
     </footer>
   );

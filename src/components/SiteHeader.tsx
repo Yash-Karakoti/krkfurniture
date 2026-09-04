@@ -1,7 +1,10 @@
 import { Link } from "@tanstack/react-router";
+import { UserButton } from "@clerk/tanstack-react-start";
 import { Heart } from "lucide-react";
-import { categories } from "@/data/products";
 import { useShowroom } from "@/lib/showroom-state";
+
+/** Header nav categories — kept static to avoid a server call on every navigation. */
+const categories = ["Chairs", "Sofas"];
 
 export function SiteHeader() {
   const { signedIn, wishlist } = useShowroom();
@@ -9,7 +12,7 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 bg-teak text-canvas">
       <div className="mx-auto flex h-16 max-w-6xl items-center gap-6 px-5">
-        <Link to="/" className="font-display text-xl tracking-tight">
+        <Link to="/" className="flex items-center gap-2 font-display text-xl tracking-tight">
           KRK <span className="text-brass">Furniture</span>
         </Link>
 
@@ -24,18 +27,26 @@ export function SiteHeader() {
               {category}
             </Link>
           ))}
-          <Link to="/catalog" search={{}} className="text-canvas/80 transition-colors hover:text-brass">
+          <Link
+            to="/catalog"
+            search={{}}
+            className="text-canvas/80 transition-colors hover:text-brass"
+          >
             All pieces
           </Link>
         </nav>
 
         <div className="ml-auto flex items-center gap-4">
-          <Link
-            to="/signin"
-            className="text-sm text-canvas/80 transition-colors hover:text-brass"
-          >
-            {signedIn ? "Account" : "Sign in"}
-          </Link>
+          {signedIn ? (
+            <UserButton />
+          ) : (
+            <Link
+              to="/sign-in/$"
+              className="text-sm text-canvas/80 transition-colors hover:text-brass"
+            >
+              Sign in
+            </Link>
+          )}
           <Link
             to="/wishlist"
             aria-label="Wishlist"
