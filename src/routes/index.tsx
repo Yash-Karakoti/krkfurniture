@@ -48,7 +48,7 @@ function Home() {
           className="w-full h-auto min-h-[500px] object-cover object-center"
         />
         <div className="absolute inset-0 bg-teak/45" />
-        <div className="absolute inset-0 flex items-center pb-24">
+        <div className="absolute inset-0 flex items-center pt-24 pb-12 md:pt-0 md:pb-24">
           <div className="relative mx-auto w-full max-w-6xl px-5">
             <ElevationSketch
               variant="chair"
