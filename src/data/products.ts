@@ -40,7 +40,7 @@ export function formatPrice(price: number | null): string {
 }
 
 /** Clearly-marked placeholder — swap for the real showroom number. */
-export const WHATSAPP_NUMBER = "91-9891849001";
+export const WHATSAPP_NUMBER = "919891849001";
 
 export function whatsappLink(productName: string): string {
   const message = `Hello, I'm interested in the ${productName}.`;
